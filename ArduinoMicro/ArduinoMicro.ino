@@ -1,3 +1,5 @@
+#include <ArduinoJson.h>
+
 const int currentPin = A0;
 const int tempPin = A1;
 const float analogRes = 0.00488758553;
@@ -8,9 +10,14 @@ int currentData[10];
 
 float flTemp, flCurrent;
 
+StaticJsonBuffer<100> jsonBuffer;
+
+JsonObject& root = jsonBuffer.createObject();
+
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(115200);
+//  Serial.begin(115200);
+  Serial1.begin(115200);
   pinMode(4, OUTPUT);
 }
 
@@ -23,15 +30,21 @@ void loop() {
     delay(50);
   }
   digitalWrite(4, HIGH);
-  flCurrent = ((avgCurrent / 10) * analogRes) / 0.1;
+  flCurrent = ((avgCurrent / 10) * analogRes);
   flTemp = ((avgTemp / 10) * analogRes) / 0.01;
-  avgTemp = (avgTemp / 10);
-  Serial.print(analogRead(flCurrent));
-  Serial.print(",  ");
-  Serial.print(flTemp);
-  Serial.println(",");
-  delay(500);
-  digitalWrite(4, LOW);
+  root["amp"] = flCurrent;
+  root["temperature"] = flTemp;
+  root.printTo(Serial1);
+//  Serial.print(flCurrent);
+//  Serial.print(",  ");
+//  Serial.print(flTemp);
+//  Serial.println(",");
+//  Serial1.print(flCurrent);
+//  Serial1.print(",  ");
+//  Serial1.print(flTemp);
+//  Serial1.println(",");
+//  delay(500);
+//  digitalWrite(4, LOW);
 }
 
 

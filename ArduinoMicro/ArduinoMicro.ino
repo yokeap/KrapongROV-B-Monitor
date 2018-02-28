@@ -35,6 +35,8 @@ void loop() {
   root["amp"] = flCurrent;
   root["temperature"] = flTemp;
   root.printTo(Serial1);
+  delay(500);
+  digitalWrite(4, LOW);
 //  Serial.print(flCurrent);
 //  Serial.print(",  ");
 //  Serial.print(flTemp);
@@ -43,8 +45,7 @@ void loop() {
 //  Serial1.print(",  ");
 //  Serial1.print(flTemp);
 //  Serial1.println(",");
-//  delay(500);
-//  digitalWrite(4, LOW);
+
 }
 
 

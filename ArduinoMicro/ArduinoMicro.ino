@@ -16,7 +16,7 @@ JsonObject& root = jsonBuffer.createObject();
 
 void setup() {
   // put your setup code here, to run once:
-//  Serial.begin(115200);
+  Serial.begin(115200);
   Serial1.begin(115200);
   pinMode(4, OUTPUT);
 }
@@ -31,22 +31,14 @@ void loop() {
   }
   digitalWrite(4, HIGH);
   flCurrent = ((avgCurrent / 10) * analogRes);
+  //flCurrent = analogRead(currentPin) * analogRes;
   flTemp = ((avgTemp / 10) * analogRes) / 0.01;
   root["amp"] = flCurrent;
   root["temperature"] = flTemp;
   root.printTo(Serial1);
-  delay(500);
+  root.printTo(Serial);
+  //delay(500);
   digitalWrite(4, LOW);
-//  Serial.print(flCurrent);
-//  Serial.print(",  ");
-//  Serial.print(flTemp);
-//  Serial.println(",");
-//  Serial1.print(flCurrent);
-//  Serial1.print(",  ");
-//  Serial1.print(flTemp);
-//  Serial1.println(",");
-
 }
-
 
 
